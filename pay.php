@@ -10,6 +10,7 @@
 
 /* Load statics & establish SQL connection */
 require('static/headers.php');
+require("includes/paypalfunctions.php");
 $link = new PDO("mysql:host=".$config['database']['host'].";dbname=".$config['database']['name'].";charset=utf8", $config['database']['user'], $config['database']['pass']);
 
 /* Before we get started, include the Paypal JS */
@@ -99,7 +100,6 @@ switch($_GET["from"]){
         /* Site/POST/default logic here */
         switch($_GET["act"]){
             case "checkout":
-                require("includes/paypalfunctions.php");
                 $_POST["pct_instance_ref"] == "" ? die("Critical Failure. No atendee id.") : $pct_instance_ref = $_POST["pct_instance_ref"];
                 $_POST["evt_id"] == "" ? die("Critical Failure. No event id.") : $evt_id = $_POST["evt_id"];
                 $_POST["evt_name"] == "" ? die("Critical Failure. No event name.") : $evt_name = $_POST["evt_name"];
